@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		193A487B2CB823F300F380A2 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 193A487A2CB823F300F380A2 /* ComposableArchitecture */; };
+		193A487E2CB823FE00F380A2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 193A487D2CB823FE00F380A2 /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		1993B2F82CB6DDC400A2B599 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -22,6 +27,19 @@
 			remoteInfo = WeatherSheet;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		193A48782CB821AB00F380A2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1993B2E72CB6DDC300A2B599 /* WeatherSheet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherSheet.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -52,6 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				193A487B2CB823F300F380A2 /* ComposableArchitecture in Frameworks */,
+				193A487E2CB823FE00F380A2 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +92,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		193A48702CB821AA00F380A2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1993B2DE2CB6DDC300A2B599 = {
 			isa = PBXGroup;
 			children = (
 				1993B2E92CB6DDC300A2B599 /* WeatherSheet */,
 				1993B2FA2CB6DDC400A2B599 /* WeatherSheetTests */,
 				1993B3042CB6DDC400A2B599 /* WeatherSheetUITests */,
+				193A48702CB821AA00F380A2 /* Frameworks */,
 				1993B2E82CB6DDC300A2B599 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -102,6 +130,7 @@
 				1993B2E32CB6DDC300A2B599 /* Sources */,
 				1993B2E42CB6DDC300A2B599 /* Frameworks */,
 				1993B2E52CB6DDC300A2B599 /* Resources */,
+				193A48782CB821AB00F380A2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -112,6 +141,8 @@
 			);
 			name = WeatherSheet;
 			packageProductDependencies = (
+				193A487A2CB823F300F380A2 /* ComposableArchitecture */,
+				193A487D2CB823FE00F380A2 /* Alamofire */,
 			);
 			productName = WeatherSheet;
 			productReference = 1993B2E72CB6DDC300A2B599 /* WeatherSheet.app */;
@@ -195,6 +226,10 @@
 			);
 			mainGroup = 1993B2DE2CB6DDC300A2B599;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				193A48792CB823F300F380A2 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				193A487C2CB823FE00F380A2 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1993B2E82CB6DDC300A2B599 /* Products */;
 			projectDirPath = "";
@@ -558,6 +593,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		193A48792CB823F300F380A2 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.15.0;
+			};
+		};
+		193A487C2CB823FE00F380A2 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		193A487A2CB823F300F380A2 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 193A48792CB823F300F380A2 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		193A487D2CB823FE00F380A2 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 193A487C2CB823FE00F380A2 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1993B2DF2CB6DDC300A2B599 /* Project object */;
 }
