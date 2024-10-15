@@ -50,6 +50,10 @@ struct WeatherSheetView: View {
                 Spacer()
                     .frame(height: 30)
             }
+            Divider()
+            
+            Divider()
+                .padding(.horizontal, 20)
             
             
         }
