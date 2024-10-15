@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		193A487B2CB823F300F380A2 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 193A487A2CB823F300F380A2 /* ComposableArchitecture */; };
 		193A487E2CB823FE00F380A2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 193A487D2CB823FE00F380A2 /* Alamofire */; };
+		19F537612CBEACB2001EDEDD /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 19F537602CBEACB2001EDEDD /* Secrets.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,11 +46,25 @@
 		1993B2E72CB6DDC300A2B599 /* WeatherSheet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherSheet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1993B2F72CB6DDC400A2B599 /* WeatherSheetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherSheetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1993B3012CB6DDC400A2B599 /* WeatherSheetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherSheetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		19F537602CBEACB2001EDEDD /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		19F5376A2CBEB67A001EDEDD /* Exceptions for "WeatherSheet" folder in "WeatherSheet" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 1993B2E62CB6DDC300A2B599 /* WeatherSheet */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1993B2E92CB6DDC300A2B599 /* WeatherSheet */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				19F5376A2CBEB67A001EDEDD /* Exceptions for "WeatherSheet" folder in "WeatherSheet" target */,
+			);
 			path = WeatherSheet;
 			sourceTree = "<group>";
 		};
@@ -102,6 +117,7 @@
 		1993B2DE2CB6DDC300A2B599 = {
 			isa = PBXGroup;
 			children = (
+				19F537602CBEACB2001EDEDD /* Secrets.xcconfig */,
 				1993B2E92CB6DDC300A2B599 /* WeatherSheet */,
 				1993B2FA2CB6DDC400A2B599 /* WeatherSheetTests */,
 				1993B3042CB6DDC400A2B599 /* WeatherSheetUITests */,
@@ -247,6 +263,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19F537612CBEACB2001EDEDD /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +442,7 @@
 		};
 		1993B30C2CB6DDC400A2B599 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19F537602CBEACB2001EDEDD /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -434,6 +452,7 @@
 				DEVELOPMENT_TEAM = K2VAN9GH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherSheet/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -454,6 +473,7 @@
 		};
 		1993B30D2CB6DDC400A2B599 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19F537602CBEACB2001EDEDD /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -463,6 +483,7 @@
 				DEVELOPMENT_TEAM = K2VAN9GH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherSheet/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -483,6 +504,7 @@
 		};
 		1993B30F2CB6DDC400A2B599 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19F537602CBEACB2001EDEDD /* Secrets.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -502,6 +524,7 @@
 		};
 		1993B3102CB6DDC400A2B599 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 19F537602CBEACB2001EDEDD /* Secrets.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
