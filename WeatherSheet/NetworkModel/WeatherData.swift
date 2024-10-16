@@ -12,9 +12,9 @@ struct WeatherData: Codable {
     let latitude, longitude: Double
     let timezone: String
     let timezoneOffset: Int
-    let current: Current
-    let hourly: [Current]
-    let daily: [Daily]
+    let current: HourlyWeatherData
+    let hourly: [HourlyWeatherData]
+    let daily: [DailyWeatherData]
 
     enum CodingKeys: String, CodingKey {
         case latitude = "lat"
@@ -25,8 +25,8 @@ struct WeatherData: Codable {
     }
 }
 
-// MARK: - Current
-struct Current: Codable {
+// MARK: - WeatherDetail
+struct HourlyWeatherData: Codable {
     let dateTime: Int
     let sunrise, sunset: Int?
     let temp, feelsLike: Double
@@ -37,7 +37,7 @@ struct Current: Codable {
     let windDeg: Int
     let weather: [Weather]
     let windGust: Double?
-    let pop: Int?
+    let pop: Double?
 
     enum CodingKeys: String, CodingKey {
         case dateTime = "dt"
@@ -69,7 +69,7 @@ enum Main: String, Codable {
 }
 
 // MARK: - Daily
-struct Daily: Codable {
+struct DailyWeatherData: Codable {
     let dt, sunrise, sunset, moonrise: Int
     let moonset: Int
     let moonPhase: Double
@@ -82,7 +82,7 @@ struct Daily: Codable {
     let windGust: Double
     let weather: [Weather]
     let clouds: Int
-    let pop, uvi: Double
+    let pop, uvi: Double?
     let rain: Double?
 
     enum CodingKeys: String, CodingKey {
