@@ -24,7 +24,7 @@ struct WeatherSheetView: View {
                 Spacer(minLength: 0)
                 ForEach(store.dates, id: \.self) { date in
                     Button {
-                        store.send(.onTapDate(date))
+                        store.send(.onTapDate(date), animation: .smooth)
                     } label: {
                         VStack {
                             Text("\(Calendar.current.veryShortWeekdaySymbols[Calendar.current.component(.weekday, from: date) - 1])")
@@ -52,9 +52,36 @@ struct WeatherSheetView: View {
             }
             Divider()
             
-            Divider()
-                .padding(.horizontal, 20)
-            
+            Group {
+                VStack {
+                    if let selectedWeatherData = store.selectedDateWeatherData,
+                       let currentWeatherData = store.currentWeatherData {
+                        HStack {
+                            if store.isSelectedDateToday {
+                                Text("\(Int(currentWeatherData.temp))°")
+                                    .font(.title)
+                                    .foregroundStyle(Color.black)
+                            } else {
+                                Text("\(Int(selectedWeatherData.temperature.max))°")
+                                    .font(.title)
+                                    .foregroundStyle(Color.black)
+                                Text("\(Int(selectedWeatherData.temperature.min))°")
+                                    .font(.title)
+                                    .foregroundStyle(Color.gray)
+                            }
+                            Spacer()
+                        }
+                        HStack {
+                            Text(store.isSelectedDateToday ? "최고:\(Int(selectedWeatherData.temperature.max))° 최저: \(Int(selectedWeatherData.temperature.min))°" : "섭씨(°C)")
+                                .foregroundStyle(Color.gray)
+                            Spacer()
+                        }
+                    }
+                }
+                
+                Divider()
+            }
+            .padding(.horizontal, 20)
             
         }
         .onAppear {

@@ -10,12 +10,12 @@ import Foundation
 struct DailyForecastData: Decodable {
     let lat: Double
     let lon: Double
-    let timezone: String
+    let timezone: String?
     let date: String
     let units: String
-    let cloudCover: CloudCover
+    let cloudCover: CloudCover?
     let humidity: Humidity
-    let preciptation: Preciptation
+    let preciptation: Preciptation?
     let temperature: Temperature
     let pressure: Pressure
     let wind: Wind

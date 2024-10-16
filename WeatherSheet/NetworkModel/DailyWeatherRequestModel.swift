@@ -12,4 +12,9 @@ struct DailyWeatherRequestModel: Encodable {
     let lon: Double
     let date: String
     let appid: String
+    let units: Units?
+    
+    enum Units: String, Encodable {
+        case metric, imperial, standard
+    }
 }
