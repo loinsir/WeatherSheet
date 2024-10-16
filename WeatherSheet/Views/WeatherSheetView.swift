@@ -52,9 +52,26 @@ struct WeatherSheetView: View {
             }
             Divider()
             
-            Divider()
-                .padding(.horizontal, 20)
-            
+            Group {
+                VStack {
+                    if let currentWeatherData = store.currentWeatherData, let dayOrNight = store.currentDayOrNight {
+                        HStack {
+                            Text("\(Int(currentWeatherData.temp))°")
+                                .font(.largeTitle)
+                                .bold()
+                            Image(systemName: dayOrNight == .day ? "sun.max" : "moon.stars.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                            Spacer()
+                        }
+                        
+                        Text("최고: \(currentWeat)° 최저: \()°")
+                    }
+                }
+                
+                Divider()
+            }
+            .padding(.horizontal, 20)
             
         }
         .onAppear {
