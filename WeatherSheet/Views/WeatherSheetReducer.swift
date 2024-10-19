@@ -52,6 +52,16 @@ struct WeatherSheetReducer {
             return currentDateSunrise...currentDateSunset ~= currentTime ? .day : .night
         }
         
+        var selectedDateHourlyWeatherData: [HourlyWeatherData]? {
+            guard let selectedDate, let hourlyWeatherData else { return nil }
+            
+            return hourlyWeatherData.sorted(by: { $0.dateTime < $1.dateTime }).filter({ data in
+                let dateString = DateFormatter.yyyyMMddDateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(data.dateTime)))
+                let selectedDateString = DateFormatter.yyyyMMddDateFormatter.string(from: selectedDate)
+                return dateString == selectedDateString
+            })
+        }
+        
         enum DayOrNight {
             case day
             case night

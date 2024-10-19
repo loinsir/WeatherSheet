@@ -82,12 +82,16 @@ struct WeatherSheetView: View {
                             Spacer()
                         }
                     }
+                    if let selectedDateHourlyData = store.selectedDateHourlyWeatherData {
+                        Chart(selectedDateHourlyData, id: \.dateTime) { data in
+                            let time = Date(timeIntervalSince1970: TimeInterval(data.dateTime)).formatted(.dateTime.hour())
+                            AreaMark(
+                                x: .value("Hour", time),
+                                y: .value("Temp", data.temp))
+                        }
+                    }
                 }
-                
                 Divider()
-                if let selectedDateWeather = store.selectedDateWeatherData {
-                    
-                }
             }
             .padding(.horizontal, 20)
             
