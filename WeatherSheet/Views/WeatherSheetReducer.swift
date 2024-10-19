@@ -55,11 +55,16 @@ struct WeatherSheetReducer {
         var selectedDateHourlyWeatherData: [HourlyWeatherData]? {
             guard let selectedDate, let hourlyWeatherData else { return nil }
             
-            return hourlyWeatherData.sorted(by: { $0.dateTime < $1.dateTime }).filter({ data in
+            let data = hourlyWeatherData.sorted(by: { $0.dateTime < $1.dateTime }).filter({ data in
                 let dateString = DateFormatter.yyyyMMddDateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(data.dateTime)))
                 let selectedDateString = DateFormatter.yyyyMMddDateFormatter.string(from: selectedDate)
                 return dateString == selectedDateString
+            }).filter({ data in
+                let hour = Calendar.current.component(.hour, from: Date(timeIntervalSince1970: TimeInterval(data.dateTime)))
+                return hour.isMultiple(of: 2)
             })
+            
+            return data
         }
         
         enum DayOrNight {

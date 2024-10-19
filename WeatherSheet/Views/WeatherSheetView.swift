@@ -84,10 +84,23 @@ struct WeatherSheetView: View {
                     }
                     if let selectedDateHourlyData = store.selectedDateHourlyWeatherData {
                         Chart(selectedDateHourlyData, id: \.dateTime) { data in
-                            let time = Date(timeIntervalSince1970: TimeInterval(data.dateTime)).formatted(.dateTime.hour())
+                            let time = Date(timeIntervalSince1970: TimeInterval(data.dateTime))
                             AreaMark(
                                 x: .value("Hour", time),
-                                y: .value("Temp", data.temp))
+                                y: .value("Temp", data.temp)
+                            )
+                            .interpolationMethod(.catmullRom)
+                        }
+                        .chartXAxis {
+                            AxisMarks(values: .stride(by: .hour, count: 6)) { value in
+                                if let date = value.as(Date.self) {
+                                    AxisValueLabel {
+                                        VStack {
+                                            Text(date, format: .dateTime.hour())
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
