@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import Charts
 import SwiftUI
 
 struct WeatherSheetView: View {
@@ -20,28 +21,32 @@ struct WeatherSheetView: View {
                     .bold()
             }
             .padding(.bottom, 10)
-            HStack {
-                Spacer(minLength: 0)
-                ForEach(store.dates, id: \.self) { date in
-                    Button {
-                        store.send(.onTapDate(date), animation: .smooth)
-                    } label: {
-                        VStack {
-                            Text("\(Calendar.current.veryShortWeekdaySymbols[Calendar.current.component(.weekday, from: date) - 1])")
-                                .font(.caption)
-                                .foregroundStyle(Color.secondary)
-                                .padding(.bottom, 5)
-                            if let day = Calendar.current.dateComponents([.day], from: date).day {
-                                Text("\(day)")
-                                    .font(.title2)
-                                    .foregroundStyle(date == store.selectedDate ? Color.white : Color.black)
-                                    .frame(width: 40, height: 40)
-                                    .background(date == store.selectedDate ? Color.primary : Color.clear)
-                                    .clipShape(Circle())
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    Spacer()
+                        .frame(width: 15)
+                    ForEach(store.dates, id: \.self) { date in
+                        Button {
+                            store.send(.onTapDate(date), animation: .smooth)
+                        } label: {
+                            VStack {
+                                Text("\(Calendar.current.veryShortWeekdaySymbols[Calendar.current.component(.weekday, from: date) - 1])")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.secondary)
+                                    .padding(.bottom, 5)
+                                if let day = Calendar.current.dateComponents([.day], from: date).day {
+                                    Text("\(day)")
+                                        .font(.title2)
+                                        .foregroundStyle(date == store.selectedDate ? Color.white : Color.black)
+                                        .frame(width: 40, height: 40)
+                                        .background(date == store.selectedDate ? Color.primary : Color.clear)
+                                        .clipShape(Circle())
+                                }
                             }
                         }
+                        Spacer()
+                            .frame(width: 15)
                     }
-                    Spacer(minLength: 0)
                 }
             }
             if let selectedDate = store.selectedDate {
@@ -80,6 +85,9 @@ struct WeatherSheetView: View {
                 }
                 
                 Divider()
+                if let selectedDateWeather = store.selectedDateWeatherData {
+                    
+                }
             }
             .padding(.horizontal, 20)
             

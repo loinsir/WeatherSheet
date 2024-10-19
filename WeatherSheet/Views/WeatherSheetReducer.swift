@@ -72,8 +72,6 @@ struct WeatherSheetReducer {
         Reduce { state, action in
             switch action {
             case .onAppear:
-                state.dates = [-3, -2, -1, 0, 1, 2, 3]
-                    .compactMap({ Calendar.current.date(byAdding: .day, value: $0, to: Date()) })
                 return .run { send in
                     let requestModel = OneCallRequestModel(lat: SEOUL_LATITUDE, lon: SEOUL_LONGITUDE, appid: Constants.API_KEY, units: .metric, exclude: [.minutely])
                     let weatherData = try await weatherService.oneCall(requestModel)
@@ -97,6 +95,9 @@ struct WeatherSheetReducer {
                 state.currentWeatherData = weatherData.current
                 state.hourlyWeatherData = weatherData.hourly
                 state.dailyWeatherData = weatherData.daily
+                state.dates = weatherData.daily.compactMap({ data in
+                    Date(timeIntervalSince1970: TimeInterval(data.dt))
+                })
                 
             case .setSelectedDateWeatherData(let dailyWeatherData):
                 state.selectedDateWeatherData = dailyWeatherData
