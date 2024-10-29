@@ -7,21 +7,13 @@
 
 import ComposableArchitecture
 import MapKit
-import Foundation
+import SwiftUI
 
 @Reducer
 struct WeatherSheetReducer {
-    private let SEOUL_LATITUDE: Double = 37.5667
-    private let SEOUL_LONGITUDE: Double = 126.978
-    
-    private let yyyyMMddDateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }()
-    
     @ObservableState
     struct State {
+        var currentLocation: CLLocationCoordinate2D?
         var dates: [Date] = []
         var selectedDate: Date?
         var currentWeatherData: HourlyWeatherData?
@@ -76,31 +68,51 @@ struct WeatherSheetReducer {
     enum Action {
         case onAppear
         case onTapDate(Date)
+        
+        case setLocation(CLLocationCoordinate2D)
         case setWeatherData(WeatherData)
         
         case setSelectedDateWeatherData(DailyForecastData)
     }
     
     @Dependency(\.weatherService) private var weatherService
+    @Dependency(\.locationService) private var locationService
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
             switch action {
             case .onAppear:
                 return .run { send in
-                    let requestModel = OneCallRequestModel(lat: SEOUL_LATITUDE, lon: SEOUL_LONGITUDE, appid: Constants.API_KEY, units: .metric, exclude: [.minutely])
+                    guard let currentLocation = try await locationService.currentLocation() else { return }
+                    
+                    let requestModel = OneCallRequestModel(
+                        lat: currentLocation.coordinate.latitude,
+                        lon: currentLocation.coordinate.longitude,
+                        appid: Constants.API_KEY,
+                        units: .metric,
+                        exclude: [.minutely]
+                    )
                     let weatherData = try await weatherService.oneCall(requestModel)
                     
+                    await send(.setLocation(currentLocation.coordinate))
                     return await send(.setWeatherData(weatherData))
                 }
 
             case .onTapDate(let date):
                 state.selectedDate = date
-                
-                return .run { [selectedDate = state.selectedDate] send in
-                    guard let selectedDate else { return }
+
+                return .run { [copyState = state] send in
+                    guard let selectedDate = copyState.selectedDate,
+                          let currentLocation = copyState.currentLocation else { return }
+
                     let dateString = DateFormatter.yyyyMMddDateFormatter.string(from: selectedDate)
-                    let requestModel = DailyWeatherRequestModel(lat: SEOUL_LATITUDE, lon: SEOUL_LONGITUDE, date: dateString, appid: Constants.API_KEY, units: .metric)
+                    let requestModel = DailyWeatherRequestModel(
+                        lat: currentLocation.latitude,
+                        lon: currentLocation.longitude,
+                        date: dateString,
+                        appid: Constants.API_KEY,
+                        units: .metric
+                    )
                     let response = try await weatherService.daily(requestModel)
 
                     return await send(.setSelectedDateWeatherData(response))
@@ -113,6 +125,9 @@ struct WeatherSheetReducer {
                 state.dates = weatherData.daily.compactMap({ data in
                     Date(timeIntervalSince1970: TimeInterval(data.dt))
                 })
+                
+            case .setLocation(let coordinateData):
+                state.currentLocation = coordinateData
                 
             case .setSelectedDateWeatherData(let dailyWeatherData):
                 state.selectedDateWeatherData = dailyWeatherData

@@ -27,7 +27,7 @@ struct WeatherSheetView: View {
                         .frame(width: 15)
                     ForEach(store.dates, id: \.self) { date in
                         Button {
-                            store.send(.onTapDate(date), animation: .smooth)
+                            store.send(.onTapDate(date))
                         } label: {
                             VStack {
                                 Text("\(Calendar.current.veryShortWeekdaySymbols[Calendar.current.component(.weekday, from: date) - 1])")
@@ -116,6 +116,14 @@ struct WeatherSheetView: View {
 }
 
 #Preview {
-    WeatherSheetView(store: Store(initialState: WeatherSheetReducer.State(), reducer: { WeatherSheetReducer() }))
+    let store = Store(
+        initialState: WeatherSheetReducer.State(),
+        reducer: { WeatherSheetReducer() },
+        withDependencies: { dependencyValues in
+            dependencyValues.locationService = .previewValue
+        }
+    )
+    
+    WeatherSheetView(store: store)
         .environment(\.locale, Locale(identifier: "ko_KR"))
 }
