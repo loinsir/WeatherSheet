@@ -105,9 +105,19 @@ struct WeatherSheetView: View {
                     }
                 }
                 Divider()
+                    .padding(.vertical, 20)
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("강수 확률")
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                        Spacer()
+                    }
+                    Text("강수 확률: \(Int((store.selectedDateWeatherData?.precipitation?.total ?? 0) * 100))%")
+                }
             }
             .padding(.horizontal, 20)
-            
         }
         .onAppear {
             store.send(.onAppear)

@@ -15,7 +15,7 @@ struct DailyForecastData: Decodable {
     let units: String
     let cloudCover: CloudCover?
     let humidity: Humidity
-    let preciptation: Preciptation?
+    let precipitation: Precipitation?
     let temperature: Temperature
     let pressure: Pressure
     let wind: Wind
@@ -29,7 +29,7 @@ struct Humidity: Decodable {
     let afternoon: Double
 }
 
-struct Preciptation: Decodable {
+struct Precipitation: Decodable {
     let total: Double
 }
 
