@@ -22,6 +22,8 @@ struct WeatherSheetReducer {
         
         var selectedDateWeatherData: DailyForecastData?
         
+        var selectedTemperatureGraphMode: TemperatureGraphMode = .temperature
+        
         var isSelectedDateToday: Bool {
             let currentDate = Date()
             guard let selectedDate else { return false }
@@ -63,9 +65,22 @@ struct WeatherSheetReducer {
             case day
             case night
         }
+        
+        @CasePathable
+        enum TemperatureGraphMode: CaseIterable, CustomStringConvertible {
+            case temperature
+            case feelsLike
+            
+            var description: String {
+                switch self {
+                case .temperature: "실제 온도"
+                case .feelsLike: "체감 온도"
+                }
+            }
+        }
     }
     
-    enum Action {
+    enum Action: BindableAction {
         case onAppear
         case onTapDate(Date)
         
@@ -73,12 +88,15 @@ struct WeatherSheetReducer {
         case setWeatherData(WeatherData)
         
         case setSelectedDateWeatherData(DailyForecastData)
+        case binding(BindingAction<State>)
     }
     
     @Dependency(\.weatherService) private var weatherService
     @Dependency(\.locationService) private var locationService
     
     var body: some ReducerOf<Self> {
+        BindingReducer()
+        
         Reduce { state, action in
             switch action {
             case .onAppear:
@@ -131,6 +149,9 @@ struct WeatherSheetReducer {
                 
             case .setSelectedDateWeatherData(let dailyWeatherData):
                 state.selectedDateWeatherData = dailyWeatherData
+                
+            case .binding:
+                return .none
             }
             
             return .none

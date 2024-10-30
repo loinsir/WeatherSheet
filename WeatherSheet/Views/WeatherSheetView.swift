@@ -10,7 +10,7 @@ import Charts
 import SwiftUI
 
 struct WeatherSheetView: View {
-    let store: StoreOf<WeatherSheetReducer>
+    @Bindable var store: StoreOf<WeatherSheetReducer>
     
     var body: some View {
         VStack {
@@ -104,6 +104,13 @@ struct WeatherSheetView: View {
                         }
                     }
                 }
+                Picker("", selection: $store.selectedTemperatureGraphMode) {
+                    ForEach(WeatherSheetReducer.State.TemperatureGraphMode.allCases, id: \.description) {
+                        Text($0.description)
+                    }
+                }
+                .pickerStyle(.segmented)
+                
                 Divider()
                     .padding(.vertical, 20)
                 
